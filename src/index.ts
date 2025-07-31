@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import { Server } from '@modelcontextprotocol/sdk/server/index.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/types.js';
+import { Server } from '@modelcontextprotocol/sdk/server';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
+import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/types';
 import { promises as fs } from 'fs';
 import { existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
@@ -286,7 +286,7 @@ ${currentQ.example}
       };
     } else {
       // 모든 질문 완료 - 문서 생성
-      const result = await generateRequirementsodos(state.answers);
+      const result = await generateRequirementsDocs(state.answers);
       
       // 상태 파일 삭제
       if (checkFileExists(STATE_FILE)) {
