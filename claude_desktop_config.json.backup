@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "task-manager": {
+      "command": "python3",
+      "args": [
+        "/Users/smith/MCPProjects/Task/mcp-task-manager/mcp_task_manager.py"
+      ],
+      "env": {}
+    }
+  }
+}
