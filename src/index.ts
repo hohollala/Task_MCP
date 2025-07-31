@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 // @ts-ignore
-import { Server } from '@modelcontextprotocol/sdk/dist/server/index.js';
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 // @ts-ignore
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/dist/server/stdio.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 // @ts-ignore
-import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/dist/types.js';
+import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/types.js';
 import { promises as fs } from 'fs';
 import { existsSync, mkdirSync } from 'fs';
 import path from 'path';
