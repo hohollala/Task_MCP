@@ -2,10 +2,7 @@
 
 import { Server } from '@modelcontextprotocol/sdk/server/index.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import {
-  CallToolRequestSchema,
-  ListToolsRequestSchema,
-} from '@modelcontextprotocol/sdk/types.js';
+import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/types.js';
 import { promises as fs } from 'fs';
 import { existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
@@ -150,7 +147,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 });
 
 // 도구 호출 처리
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
+server.setRequestHandler(CallToolRequestSchema, async (request: CallToolRequest) => {
   const { name, arguments: args } = request.params;
 
   switch (name) {
@@ -158,7 +155,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       return await taskNew();
     
     case 'task-new-answer':
-      return await taskNewAnswer(args?.answer as string);
+      const answer = args?.answer;
+      if (typeof answer !== 'string') {
+        throw new Error('answer parameter must be a string');
+      }
+      return await taskNewAnswer(answer);
     
     case 'task-plan':
       return await taskPlan();
