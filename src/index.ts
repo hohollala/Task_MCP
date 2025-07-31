@@ -14,7 +14,7 @@ const __filename = import.meta.url;
 const __dirname = path.dirname(__filename);
 
 // 상수 정의
-const DOCS_DIR = 'docs';
+const DOCS_DIR = '~/.claude/commands';
 
 // docs 디렉토리 생성
 function ensureDocsDir(): void {
