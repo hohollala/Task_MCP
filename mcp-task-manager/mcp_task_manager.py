@@ -1053,42 +1053,7 @@ async def _update_design_file(task_name: str) -> None:
 """
     save_to_file("docs/design.md", design_content)
 
-@mcp.tool(name="task-complete")
-async def task_complete() -> str:
-    """현재 진행중인 작업 완료 처리
-    
-    명령어: task-complete
-    
-    Returns:
-        str: 작업 완료 결과 메시지
-    """
-    if not check_file_exists("docs/project_task.md"):
-        return "❌ 작업 파일이 없습니다."
-    
-    task_content = load_from_file("docs/project_task.md")
-    lines = task_content.split('\n')
-    
-    # 진행중인 작업 찾기 ([-] 상태)
-    completed_task = None
-    for i, line in enumerate(lines):
-        if '[-]' in line:
-            # 완료로 변경
-            lines[i] = line.replace('[-]', '[x]')
-            task_parts = line.strip().split(' ', 2)
-            if len(task_parts) >= 3:
-                completed_task = f"{task_parts[1]} {task_parts[2]}"
-            break
-    
-    if not completed_task:
-        return "❌ 진행중인 작업이 없습니다."
-    
-    # 업데이트된 내용 저장
-    updated_content = '\n'.join(lines)
-    save_to_file("docs/project_task.md", updated_content)
-    
-    return f"""✅ {completed_task} 완료
 
-🚀 다음 작업을 시작하려면 /task-start를 실행하세요."""
 
 @mcp.tool(name="task-resume")
 async def task_resume() -> str:
@@ -1120,53 +1085,12 @@ async def task_resume() -> str:
 
 🚀 현재 진행중: {current_task}
 
-작업을 완료하면 /task-complete를 실행하세요."""
+작업을 완료하면 /task-start를 실행하여 다음 작업을 시작하세요."""
     
     # 진행중인 작업이 없으면 다음 작업 시작
     return await task_start()
 
-@mcp.tool(name="task-status")
-async def task_status() -> str:
-    """현재 프로젝트 진행 상황 확인
-    
-    명령어: task-status
-    
-    Returns:
-        str: 프로젝트 상태 정보
-    """
-    if not check_file_exists("docs/project_task.md"):
-        return "❌ 프로젝트 파일이 없습니다. 먼저 /task-plan으로 계획을 수립하세요."
-    
-    task_content = load_from_file("docs/project_task.md")
-    lines = task_content.split('\n')
-    
-    total_tasks = 0
-    completed_tasks = 0
-    current_task = None
-    
-    for line in lines:
-        if ('[ ]' in line or '[-]' in line or '[x]' in line) and '.' in line:
-            total_tasks += 1
-            if '[x]' in line:
-                completed_tasks += 1
-            elif '[-]' in line:
-                task_parts = line.strip().split(' ', 2)
-                if len(task_parts) >= 3:
-                    current_task = f"{task_parts[1]} {task_parts[2]}"
-    
-    progress = (completed_tasks / total_tasks * 100) if total_tasks > 0 else 0
-    
-    status_msg = f"""📊 프로젝트 진행 상황
 
-🎯 전체 진행률: {progress:.1f}% ({completed_tasks}/{total_tasks})
-"""
-    
-    if current_task:
-        status_msg += f"🚀 현재 작업: {current_task}"
-    else:
-        status_msg += "⏸️ 진행중인 작업 없음"
-    
-    return status_msg
 
 @mcp.tool(name="task-clean")
 async def task_clean() -> str:
