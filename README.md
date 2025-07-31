@@ -14,88 +14,43 @@ sample/ 폴더의 task.md와 new.md를 기반으로 구현된 MCP(Model Context 
 - **`task-resume`**: 기존 작업 재개
 - **`task-status`**: 프로젝트 진행 상황 확인
 
-### 🛠️ 설치 방법
+## 🛠️ 설치
 
-#### 1단계: 사전 요구사항
-- **Node.js 18+** 설치 필요
-- **Claude 클라이언트** 중 하나:
-  - **Claude Desktop** 앱 ([claude.ai/download](https://claude.ai/download)) 
-  - **Claude Code** 터미널 기반 AI 코딩 도구
-- **Git** 설치 (선택사항)
+### 방법 1: 간단한 글로벌 설치
 
-#### 2단계: MCP 서버 설치
-
-### 🌍 **글로벌 설치 (권장)**
-
-#### **방법 1: NPX 직접 실행 (가장 간단)**
 ```bash
-# Claude Code에서 바로 사용
-claude mcp add task-manager -- npx -y mcp-task-manager
-```
-
-#### **방법 2: 글로벌 설치**
-```bash
-# 1. 글로벌 설치
-npm install -g mcp-task-manager
-
-# 2. Claude Code에서 등록
-claude mcp add task-manager -- task-manager
-```
-
-#### **방법 3: 수동 설치 (고급 사용자)**
-```bash
-# 1. 프로젝트 클론
+# 프로젝트 클론
 git clone https://github.com/hohollala/Task_MCP.git
 cd Task_MCP
 
-# 2. 의존성 설치 및 빌드
-npm install
+# 한 번에 설치 및 설정
+npm install && npm run build && npm install -g .
 
-# 3. 글로벌 설치
-npm install -g .
-
-# 4. Claude Code에서 등록
-cd ~
-claude mcp add task-manager -- task-manager
+# MCP 서버 등록 (사용자 레벨)
+# Windows용:
+claude mcp add task-manager -s user -- node dist/index.js
+# macOS/Linux용:
+claude mcp add task-manager -s user -- node $(pwd)/dist/index.js
 ```
 
-### 📁 **로컬 설치 (프로젝트별)**
-
-특정 프로젝트에서만 사용하려는 경우:
+### 방법 2: 로컬 설치
 
 ```bash
-# NPX 직접 실행
-npx mcp-task-manager
+# 프로젝트 디렉토리에서
+npm install && npm run build
 
-# 또는 로컬 설치 후 실행
-npm install
-npm start
+# MCP 서버 등록
+claude mcp add task-manager -s user -- node $(pwd)/dist/index.js
 ```
 
-#### 3단계: 설치 검증
+### 설치 확인
 
-### 🖥️ **Claude Desktop**
+```bash
+# MCP 서버 목록 확인
+claude mcp list
 
-1. **Claude Desktop 재시작** (Cmd+Q / Alt+F4)
-2. **🔨 Tools 아이콘** 확인 → `task-new` 등 표시되면 성공
-3. **테스트**: "task-new" 실행 → 첫 번째 질문이 나타나면 성공!
-
-### 💻 **Claude Code**
-
-1. **MCP 서버 연결 확인**
-   ```bash
-   claude mcp list
-   ```
-   `task-manager: npx -y mcp-task-manager - ✓ Connected` 표시되면 성공
-
-2. **MCP 도구 테스트**
-   ```bash
-   claude
-   > task-new
-   ```
-
-3. **성공 확인**
-   - 7개 질문 중 첫 번째 질문이 나타나면 성공!
+# task-manager가 ✓ Connected 상태로 표시되면 성공!
+```
 
 ## 📱 사용 방법
 
@@ -170,8 +125,11 @@ which node
 
 **Claude Code (터미널):**
 ```bash
-# 1. NPX 직접 실행 방식 (권장)
-claude mcp add task-manager -- npx -y mcp-task-manager
+# 1. 로컬 설치 방식 (권장)
+cd /path/to/your/project
+npm install
+npm run build
+claude mcp add task-manager -s user -- node $(pwd)/dist/index.js
 
 # 2. 글로벌 설치 확인
 which task-manager
@@ -184,7 +142,7 @@ claude mcp add task-manager -- task-manager
 claude mcp list
 
 # 5. 로컬 설치인 경우 프로젝트별 추가
-claude mcp add task-manager node MCP_PATH/dist/index.js
+claude mcp add task-manager -s user -- node /absolute/path/to/dist/index.js
 ```
 
 ### **🚫 Tools가 보이지 않는 경우**
@@ -216,8 +174,10 @@ tail -f ~/Library/Logs/Claude/claude.log
 
 **터미널에서 직접 실행** (디버깅용):
 ```bash
-# NPX 직접 실행
-npx mcp-task-manager
+# 로컬 빌드 후 직접 실행
+npm install
+npm run build
+node dist/index.js
 
 # 또는 글로벌 설치된 경우
 task-manager
