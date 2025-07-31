@@ -3,10 +3,9 @@
     "task-manager": {
       "command": "node",
       "args": [
-        "dist/index.js"
+        "C:\\Users\\%USERNAME%\\MCPProjects\\Task\\dist\\index.js"
       ],
-      "env": {},
-      "cwd": "."
+      "env": {}
     }
   }
 } 
