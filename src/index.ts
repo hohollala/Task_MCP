@@ -1,19 +1,18 @@
 #!/usr/bin/env node
 
-import { Server } from '@modelcontextprotocol/sdk/server';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio';
-import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/types';
+import { Server } from '@modelcontextprotocol/sdk/server/index.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { CallToolRequestSchema, ListToolsRequestSchema, CallToolRequest } from '@modelcontextprotocol/sdk/types.js';
 import { promises as fs } from 'fs';
 import { existsSync, mkdirSync } from 'fs';
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
+import path from 'path';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __filename = import.meta.url;
+const __dirname = path.dirname(__filename);
 
 // 상수 정의
 const DOCS_DIR = 'docs';
-const STATE_FILE = join(DOCS_DIR, '.task_new_state.json');
+const STATE_FILE = path.join(DOCS_DIR, '.task_new_state.json');
 
 interface TaskState {
   questions: Array<{
@@ -43,7 +42,7 @@ async function loadFromFile(filePath: string): Promise<string> {
 
 // 파일 저장
 async function saveToFile(filePath: string, content: string): Promise<void> {
-  const dir = dirname(filePath);
+  const dir = path.dirname(filePath);
   if (!existsSync(dir)) {
     mkdirSync(dir, { recursive: true });
   }
@@ -286,7 +285,7 @@ ${currentQ.example}
       };
     } else {
       // 모든 질문 완료 - 문서 생성
-      const result = await generateRequirementsDocs(state.answers);
+      const result = await generateRequirementsodos(state.answers);
       
       // 상태 파일 삭제
       if (checkFileExists(STATE_FILE)) {
@@ -355,7 +354,7 @@ async function generateRequirementsodos(answers: Record<string, string>): Promis
 ✅ 요구사항 문서 작성 완료
 🚀 **task-plan** 명령어를 실행하여 프로젝트 계획을 수립하세요.`;
 
-  await saveToFile(join(DOCS_DIR, 'requirements.md'), requirementsContent);
+  await saveToFile(path.join(DOCS_DIR, 'requirements.md'), requirementsContent);
 
   // designed.md와 technical_spec.md도 생성 (간소화된 버전)
   const designedContent = `# 🎨 디자인 가이드
@@ -377,8 +376,8 @@ ${answers.server || '미정'}
 ## 다음 단계
 🚀 **task-plan** 명령어를 실행하여 프로젝트 계획을 수립하세요.`;
 
-  await saveToFile(join(DOCS_DIR, 'designed.md'), designedContent);
-  await saveToFile(join(DOCS_DIR, 'technical_spec.md'), techSpecContent);
+  await saveToFile(path.join(DOCS_DIR, 'designed.md'), designedContent);
+  await saveToFile(path.join(DOCS_DIR, 'technical_spec.md'), techSpecContent);
 
   return `✅ 요구사항 문서가 성공적으로 생성되었습니다!
 
@@ -431,7 +430,7 @@ async function taskPlan(): Promise<{ content: Array<{ type: string; text: string
 - \`[-]\` **진행중**: 현재 작업 중인 작업  
 - \`[x]\` **완료**: 완료된 작업`;
 
-  await saveToFile(join(DOCS_DIR, 'project_task.md'), planContent);
+  await saveToFile(path.join(DOCS_DIR, 'project_task.md'), planContent);
 
   return {
     content: [{
@@ -442,7 +441,7 @@ async function taskPlan(): Promise<{ content: Array<{ type: string; text: string
 }
 
 async function taskStart(): Promise<{ content: Array<{ type: string; text: string }> }> {
-  if (!checkFileExists(join(DOCS_DIR, 'project_task.md'))) {
+  if (!checkFileExists(path.join(DOCS_DIR, 'project_task.md'))) {
     return {
       content: [{
         type: 'text',
