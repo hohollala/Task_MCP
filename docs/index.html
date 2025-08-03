@@ -76,6 +76,16 @@
             margin: 25px 0 15px 0;
         }
 
+        .section h5 {
+            color: #4a5568;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -397,32 +407,111 @@
                     <div class="install-methods">
                         <div class="install-method">
                             <h4><i class="fas fa-globe"></i> 글로벌 설치</h4>
+                            <p>전체 프로젝트를 글로벌로 설치하는 방법입니다.</p>
+                            
+                            <h5><i class="fas fa-1"></i> 1. 프로젝트 클론</h5>
                             <div class="command-example">
-                                <button class="copy-btn" onclick="copyToClipboard(this, '# 프로젝트 클론\ngit clone https://github.com/hohollala/Task_MCP.git\ncd Task_MCP\n\n# 설치 및 빌드\nnpm install && npm run build && npm install -g .\n\n# MCP 서버 등록\nclaude mcp add task-manager -s user -- node $PWD/dist/index.js')">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'git clone https://github.com/hohollala/Task_MCP.git')">
                                     <i class="fas fa-copy"></i>
                                 </button>
-                                # 프로젝트 클론
                                 git clone https://github.com/hohollala/Task_MCP.git
+                            </div>
+                            
+                            <h5><i class="fas fa-2"></i> 2. 디렉토리 이동</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'cd Task_MCP')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
                                 cd Task_MCP
-                                
-                                # 설치 및 빌드
-                                npm install && npm run build && npm install -g .
-                                
-                                # MCP 서버 등록
+                            </div>
+                            
+                            <h5><i class="fas fa-3"></i> 3. 의존성 설치</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm install')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                npm install
+                            </div>
+                            
+                            <h5><i class="fas fa-4"></i> 4. 프로젝트 빌드</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm run build')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                npm run build
+                            </div>
+                            
+                            <h5><i class="fas fa-5"></i> 5. 글로벌 설치</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm install -g .')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                npm install -g .
+                            </div>
+                            
+                            <h5><i class="fas fa-6"></i> 6. MCP 서버 등록</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'claude mcp add task-manager -s user -- node $PWD/dist/index.js')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
                                 claude mcp add task-manager -s user -- node $PWD/dist/index.js
                             </div>
                         </div>
 
                         <div class="install-method">
-                            <h4><i class="fas fa-folder"></i> 로컬 설치</h4>
+                            <h4><i class="fas fa-desktop"></i> 로컬 설치 (Windows)</h4>
+                            <p>Windows에서 로컬로 설치하는 방법입니다.</p>
+                            
+                            <h5><i class="fas fa-1"></i> 1. 의존성 설치</h5>
                             <div class="command-example">
-                                <button class="copy-btn" onclick="copyToClipboard(this, '# 프로젝트 디렉토리에서\nnpm install && npm run build\n\n# MCP 서버 등록\nclaude mcp add task-manager -s user -- node $(pwd)/dist/index.js')">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm install')">
                                     <i class="fas fa-copy"></i>
                                 </button>
-                                # 프로젝트 디렉토리에서
-                                npm install && npm run build
-                                
-                                # MCP 서버 등록
+                                npm install
+                            </div>
+                            
+                            <h5><i class="fas fa-2"></i> 2. 프로젝트 빌드</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm run build')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                npm run build
+                            </div>
+                            
+                            <h5><i class="fas fa-3"></i> 3. MCP 서버 등록 (Windows)</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'claude mcp add task-manager -s user -- node %cd%/dist/index.js')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                claude mcp add task-manager -s user -- node %cd%/dist/index.js
+                            </div>
+                        </div>
+
+                        <div class="install-method">
+                            <h4><i class="fab fa-apple"></i> 로컬 설치 (Mac/Linux)</h4>
+                            <p>Mac/Linux에서 로컬로 설치하는 방법입니다.</p>
+                            
+                            <h5><i class="fas fa-1"></i> 1. 의존성 설치</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm install')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                npm install
+                            </div>
+                            
+                            <h5><i class="fas fa-2"></i> 2. 프로젝트 빌드</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm run build')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                npm run build
+                            </div>
+                            
+                            <h5><i class="fas fa-3"></i> 3. MCP 서버 등록 (Mac/Linux)</h5>
+                            <div class="command-example">
+                                <button class="copy-btn" onclick="copyToClipboard(this, 'claude mcp add task-manager -s user -- node $(pwd)/dist/index.js')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
                                 claude mcp add task-manager -s user -- node $(pwd)/dist/index.js
                             </div>
                         </div>
