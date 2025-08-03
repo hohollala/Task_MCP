@@ -7,6 +7,14 @@ import { Logger } from "./utils/logger.js";
 import { PROTOCOL } from "./constants.js";
 import { getToolDefinitions, getPromptDefinitions, executeTool, toolExists, getPromptMessage } from "./tools/index.js";
 
+// MCP SDK 타입 정의
+interface MCPRequest {
+    params?: any;
+    _meta?: {
+        progressToken?: string;
+    };
+}
+
 const server = new Server({
     name: "task-manager",
     version: "1.0.0",
@@ -118,17 +126,17 @@ function stopProgressUpdates(progressData: { interval: NodeJS.Timeout, progressT
 }
 
 // tools/list
-server.setRequestHandler(ListToolsRequestSchema, async (request) => {
+server.setRequestHandler(ListToolsRequestSchema, async (request: MCPRequest) => {
     return { tools: getToolDefinitions() };
 });
 
 // prompts/list
-server.setRequestHandler(ListPromptsRequestSchema, async (request) => {
+server.setRequestHandler(ListPromptsRequestSchema, async (request: MCPRequest) => {
     return { prompts: getPromptDefinitions() };
 });
 
 // prompts/get
-server.setRequestHandler(GetPromptRequestSchema, async (request) => {
+server.setRequestHandler(GetPromptRequestSchema, async (request: MCPRequest) => {
     const name = request.params?.name;
     const promptMessage = getPromptMessage(name);
     
@@ -148,7 +156,7 @@ server.setRequestHandler(GetPromptRequestSchema, async (request) => {
 });
 
 // tools/call
-server.setRequestHandler(CallToolRequestSchema, async (request) => {
+server.setRequestHandler(CallToolRequestSchema, async (request: MCPRequest) => {
     const toolName = request.params.name;
     
     if (toolExists(toolName)) {

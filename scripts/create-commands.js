@@ -4,12 +4,22 @@ import { promises as fs } from 'fs';
 import path from 'path';
 import { homedir } from 'os';
 
+// Windows와 Unix 환경 모두 지원
 const commandsDir = path.join(homedir(), '.claude', 'commands');
 
 async function createCommands() {
   try {
+    console.log('📁 명령어 파일 생성 시작...');
+    console.log(`📍 대상 경로: ${commandsDir}`);
+
     // ~/.claude/commands 폴더 생성
-    await fs.mkdir(commandsDir, { recursive: true });
+    try {
+      await fs.mkdir(commandsDir, { recursive: true });
+      console.log('✅ 명령어 디렉토리 생성 완료');
+    } catch (mkdirError) {
+      console.error('⚠️ 디렉토리 생성 중 오류:', mkdirError.message);
+      // 디렉토리가 이미 존재하는 경우 계속 진행
+    }
 
     // task-new.md 생성
     const taskNewContent = `# task-new
@@ -114,20 +124,35 @@ task-resume 명령어는 현재 진행 상황을 확인하고 다음 작업을 �
 작업 완료 후 다시 task-resume을 실행하여 다음 작업을 진행하세요.`;
 
     // 파일들 생성
-    await fs.writeFile(path.join(commandsDir, 'task-new.md'), taskNewContent);
-    await fs.writeFile(path.join(commandsDir, 'task-plan.md'), taskPlanContent);
-    await fs.writeFile(path.join(commandsDir, 'task-start.md'), taskStartContent);
-    await fs.writeFile(path.join(commandsDir, 'task-resume.md'), taskResumeContent);
+    const files = [
+      { name: 'task-new.md', content: taskNewContent },
+      { name: 'task-plan.md', content: taskPlanContent },
+      { name: 'task-start.md', content: taskStartContent },
+      { name: 'task-resume.md', content: taskResumeContent }
+    ];
 
-    console.log('✅ 명령어 파일들이 ~/.claude/commands 폴더에 생성되었습니다.');
-    console.log('📁 생성된 파일들:');
-    console.log('  - task-new.md');
-    console.log('  - task-plan.md');
-    console.log('  - task-start.md');
-    console.log('  - task-resume.md');
+    for (const file of files) {
+      try {
+        const filePath = path.join(commandsDir, file.name);
+        await fs.writeFile(filePath, file.content, 'utf8');
+        console.log(`✅ ${file.name} 생성 완료`);
+      } catch (writeError) {
+        console.error(`❌ ${file.name} 생성 실패:`, writeError.message);
+        throw writeError;
+      }
+    }
+
+    console.log('\n🎉 모든 명령어 파일이 성공적으로 생성되었습니다!');
+    console.log(`📁 위치: ${commandsDir}`);
+    console.log('📋 생성된 파일들:');
+    files.forEach(file => console.log(`  - ${file.name}`));
 
   } catch (error) {
-    console.error('❌ 명령어 파일 생성 실패:', error);
+    console.error('❌ 명령어 파일 생성 중 오류 발생:', error.message);
+    console.error('💡 해결 방법:');
+    console.error('  1. 관리자 권한으로 실행해보세요');
+    console.error('  2. ~/.claude/commands 폴더의 권한을 확인하세요');
+    console.error('  3. 안티바이러스 프로그램이 파일 생성을 차단하지 않는지 확인하세요');
     process.exit(1);
   }
 }
