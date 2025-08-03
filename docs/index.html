@@ -448,66 +448,29 @@
                                 </button>
                                 npm install -g .
                             </div>
+                        </div>
+
+                        <div class="install-method">
+                            <h4><i class="fas fa-server"></i> MCP 서버 등록</h4>
+                            <p>설치 후 MCP 서버를 등록하는 방법입니다.</p>
                             
-                            <h5><i class="fas fa-6"></i> 6. MCP 서버 등록</h5>
+                            <h5><i class="fab fa-windows"></i> Windows: PowerShell</h5>
                             <div class="command-example">
                                 <button class="copy-btn" onclick="copyToClipboard(this, 'claude mcp add task-manager -s user -- node $PWD/dist/index.js')">
                                     <i class="fas fa-copy"></i>
                                 </button>
                                 claude mcp add task-manager -s user -- node $PWD/dist/index.js
                             </div>
-                        </div>
-
-                        <div class="install-method">
-                            <h4><i class="fas fa-desktop"></i> 로컬 설치 (Windows)</h4>
-                            <p>Windows에서 로컬로 설치하는 방법입니다.</p>
                             
-                            <h5><i class="fas fa-1"></i> 1. 의존성 설치</h5>
-                            <div class="command-example">
-                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm install')">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                                npm install
-                            </div>
-                            
-                            <h5><i class="fas fa-2"></i> 2. 프로젝트 빌드</h5>
-                            <div class="command-example">
-                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm run build')">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                                npm run build
-                            </div>
-                            
-                            <h5><i class="fas fa-3"></i> 3. MCP 서버 등록 (Windows)</h5>
+                            <h5><i class="fas fa-terminal"></i> Windows: 명령 프롬프트</h5>
                             <div class="command-example">
                                 <button class="copy-btn" onclick="copyToClipboard(this, 'claude mcp add task-manager -s user -- node %cd%/dist/index.js')">
                                     <i class="fas fa-copy"></i>
                                 </button>
                                 claude mcp add task-manager -s user -- node %cd%/dist/index.js
                             </div>
-                        </div>
-
-                        <div class="install-method">
-                            <h4><i class="fab fa-apple"></i> 로컬 설치 (Mac/Linux)</h4>
-                            <p>Mac/Linux에서 로컬로 설치하는 방법입니다.</p>
                             
-                            <h5><i class="fas fa-1"></i> 1. 의존성 설치</h5>
-                            <div class="command-example">
-                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm install')">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                                npm install
-                            </div>
-                            
-                            <h5><i class="fas fa-2"></i> 2. 프로젝트 빌드</h5>
-                            <div class="command-example">
-                                <button class="copy-btn" onclick="copyToClipboard(this, 'npm run build')">
-                                    <i class="fas fa-copy"></i>
-                                </button>
-                                npm run build
-                            </div>
-                            
-                            <h5><i class="fas fa-3"></i> 3. MCP 서버 등록 (Mac/Linux)</h5>
+                            <h5><i class="fab fa-apple"></i> Mac/Linux</h5>
                             <div class="command-example">
                                 <button class="copy-btn" onclick="copyToClipboard(this, 'claude mcp add task-manager -s user -- node $(pwd)/dist/index.js')">
                                     <i class="fas fa-copy"></i>
