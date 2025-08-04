@@ -25,8 +25,10 @@ cd Task_MCP
 npm install && npm run build && npm install -g .
 
 # MCP 서버 등록 (사용자 레벨)
-# Windows용:
-claude mcp add task-manager -s user -- node dist/index.js
+# Windows용: 파워쉘 
+claude mcp add task-manager -s user -- node $PWD/dist/index.js
+# Windows용: CMD
+claude mcp add task-manager -s user -- node [설치경로]/dist/index.js
 # macOS/Linux용:
 claude mcp add task-manager -s user -- node $(pwd)/dist/index.js
 ```
